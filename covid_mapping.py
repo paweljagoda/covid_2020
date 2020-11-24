@@ -20,8 +20,6 @@ data_select = data.loc[:,['month','year','cases','countriesAndTerritories','cont
 
 world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
 
-#world = gpd.read_file('./gadm36_shp/gadm36.shx')
-
 data_select = data_select.rename(columns={'countriesAndTerritories':'name'})
 
 data_select = data_select.replace('_', ' ', regex=True)
@@ -54,10 +52,10 @@ list_of_months = [
 ]
 def generate_plot_of_cases(month):
     
-    # load data for particular year
+    # load data for particular month
     df = pd.read_csv(month)
 
-    # merge mean house price data set with geographical data
+    # merge covid case data set with geospacial data
     geo_month = world.merge(df, left_on = 'name', right_on = 'name')
 
     # create map, added plt.Normalize to keep the legend range the same for all maps
